@@ -1,0 +1,15 @@
+---
+
+  - name: Subscribe to EAP repository
+    subscription_manager:
+
+  - name: Enable the EAP repository
+    subscription_
+
+  
+  - name: Install the EAP RPM
+    yum:
+      state: installed
+      name: "@^jboss-eap7"
+
+
