@@ -1,0 +1,6 @@
+---
+
+  - name: Copy JBoss EAP
+    copy:
+      src: "{{ jboss_eap_artifact_name }}"
+      dest: "{{ jboss_eap_artifact_dl_dest }}"

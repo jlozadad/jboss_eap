@@ -1,0 +1,27 @@
+---
+
+  - name: Async Download JBoss EAP from Red Hat Customer Portal
+    redhat_csp_download:
+      url: "{{ jboss_eap_artifact_url }}"
+      dest: "{{ jboss_eap_artifact_dl_dest }}"
+      username: "{{ rhn_username }}"
+      password: "{{ rhn_password }}"
+    async: 7200
+    poll: 0
+    register: csp_jboss_eap_download
+    tags:
+      - jboss_eap
+
+
+  - name: Check On JBoss EAP Download Completion (CSP)
+    async_status: jid={{ csp_jboss_eap_download.ansible_job_id }}
+    register: job_result1
+    until: job_result1.finished
+    retries: 600
+    delay: 10
+    tags:
+      - jboss_eap
+
+
+
+

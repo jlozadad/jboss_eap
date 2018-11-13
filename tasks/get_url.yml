@@ -1,0 +1,19 @@
+---
+
+  - name: Async Download JBoss EAP by URL (HTTP/HTTPS/FTP)
+    get_url:
+      url: "{{ jboss_eap_artifact_url }}"
+      dest: "{{ jboss_eap_artifact_dl_dest }}"
+      url_username: "{{ url_username | default(None) }}"
+      url_password: "{{ url_password | default(None) }}"
+    async: 7200
+    poll: 0
+    register: url_jboss_eap_download
+
+  - name: Check On JBoss EAP Download Completion (URL)
+    async_status: jid={{ url_jboss_eap_download.ansible_job_id }}
+    register: job_result1
+    until: job_result1.finished
+    retries: 600
+    delay: 10
+
